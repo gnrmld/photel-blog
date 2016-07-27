@@ -1,0 +1,16 @@
+.title {
+    font-size: 23px;
+    color: green;
+    font-weight:bolder;
+    margin-top:20px;
+}
+.creation_date {
+    font-size: 13px;
+    color:gray;
+    text-decoration: underline;
+}
+
+.content {
+    font-style: italic;
+    font-size:15px;
+}

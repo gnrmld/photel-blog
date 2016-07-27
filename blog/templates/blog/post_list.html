@@ -1,1 +1,9 @@
-hilo wurlD
+{% load staticfiles %}
+<head>
+<link rel="stylesheet" href="{% static 'css/blog.css' %}">
+</head>
+{% for post in posts %}
+    <div class='title'>{{ post.title }}</div>
+    <div class='creation_date'>{{ post.created_date }}</div>
+    <div class='content'>{{ post.text|linebreaksbr }}</div>
+{% endfor %}
