@@ -1,8 +1,11 @@
 .title {
     font-size: 23px;
-    color: green;
+    color: #b2cbe5;
     font-weight:bolder;
     margin-top:20px;
+}
+.title a{
+    color: #b2cbe5;
 }
 .creation_date {
     font-size: 13px;
@@ -13,4 +16,38 @@
 .content {
     font-style: italic;
     font-size:15px;
+}
+
+
+.header {
+    background-color: black;
+    margin-top: 0;
+    padding: 20px 20px 20px 40px;
+}
+.header h1, .header h1 a, .header h1 a:visited, .header h1 a:active {
+    color: #C6E2FF;
+    font-size: 36pt;
+    text-decoration: none;
+}
+
+
+.post {
+    margin: 0 40px;
+    border-bottom: 1px #dfdfdf solid;
+}
+
+.top-menu, .top-menu:hover, .top-menu:visited {
+    color: #ffffff;
+    float: right;
+    font-size: 20pt;
+    margin-right: 20px;
+    margin-top: 30px;
+}
+
+.save {
+    float: right;
+}
+
+.post-form textarea, .post-form input {
+    width: 100%;
 }

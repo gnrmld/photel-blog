@@ -1,0 +1,16 @@
+{% extends 'blog/base.html' %}
+
+{% block content %}
+
+<div class='post'>
+    <div class='title'>
+        {{ post.title }}
+        {% if user.is_authenticated %}
+            <a class="btn" href="{% url 'post_edit' pk=post.pk %}"><span class="glyphicon glyphicon-pencil"></span></a>
+        {% endif %}
+    </div>
+    <div class='creation_date'>{{ post.created_date }}</div>
+    <div class='content'>{{ post.text|linebreaksbr }}</div>
+</div>
+
+{% endblock %}
