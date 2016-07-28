@@ -38,6 +38,8 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'blog',
+    'mapa_saan_ka_woman',
+    'googlemaps',
 ]
 
 MIDDLEWARE_CLASSES = [
@@ -124,3 +126,6 @@ STATIC_URL = '/static/'
 
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 MEDIA_URL = '/media/'
+
+
+GEOPOSITION_GOOGLE_MAPS_API_KEY ='AIzaSyBl-xUjsxqH_-N1uwCcb8r26ZMcWf2cfHo'

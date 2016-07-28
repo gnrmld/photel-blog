@@ -28,8 +28,5 @@ class Migration(migrations.Migration):
                 ('published_date', models.DateTimeField(blank=True, null=True)),
                 ('author', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to=settings.AUTH_USER_MODEL)),
             ],
-            options={
-                'indexes': [],
-            },
         ),
     ]

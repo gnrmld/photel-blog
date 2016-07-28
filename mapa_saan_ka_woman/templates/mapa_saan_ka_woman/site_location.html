@@ -1,0 +1,44 @@
+{% extends 'mapa_saan_ka_woman/base.html' %}
+
+{% block content %}
+<div class='content'><div class="map" style="width: 800px; height: 800px;"></div></div>
+<script>
+    $(document).ready(function(){
+        var latlng = new google.maps.LatLng("14.5509558", "121.0488619");
+        var mapOptions = {
+            zoom: 18,
+            center: latlng,
+            mapTypeControl: false,
+            navigationControlOptions: {
+                style: google.maps.NavigationControlStyle.SMALL
+            },
+            mapTypeId: google.maps.MapTypeId.ROADMAP
+        };
+
+        map = new google.maps.Map($('.map')[0], mapOptions);
+        // var marker = new google.maps.Marker({
+        //     position: latlng,
+        //     map: map,
+        //     title: "trabaho"
+        // })
+        {% for order in orders %}
+            var coords = "{{ order.drop_off_address.split }}";
+            var array = coords.split(',');
+            var lati = array[0].replace('[&#39;', '');
+            var longi = array[1].replace('&#39;]','');
+            console.log(lati);
+            console.log(longi);
+            // var lat = "14.551343";
+            // var long = "121.048217";
+            latlng = new google.maps.LatLng(lati, longi);
+            new google.maps.Marker({
+                position: latlng,
+                map: map,
+                title: "{{ order.payment_method }}"
+            });
+        {% endfor %}
+    });
+</script>
+&#39;&#39;
+
+{% endblock %}

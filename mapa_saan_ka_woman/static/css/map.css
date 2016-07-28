@@ -1,0 +1,34 @@
+h1 {
+    color: green;
+}
+
+#footer {
+    position: fixed;
+    left: 0px;
+    bottom: 0px;
+    height: 30px;
+    width: 100%;
+    padding-top: 5px;
+    background-color: black;
+    color: white;
+    text-align: center;
+    text-transform: uppercase;
+}
+
+#header {
+    color: white;
+    background-color: black;
+    width: 100%;
+    margin-top: 0;
+    padding: 10px 10px 10px 20px;
+}
+#header a, #header a:visited, #header a:hover {
+    color:white;
+    text-decoration: none;
+}
+
+.content{
+    position:absolute;
+    margin-bottom: 40px;
+    padding-left: 20px;
+}
