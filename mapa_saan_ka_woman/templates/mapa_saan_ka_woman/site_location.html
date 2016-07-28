@@ -16,27 +16,44 @@
         };
 
         map = new google.maps.Map($('.map')[0], mapOptions);
-        // var marker = new google.maps.Marker({
-        //     position: latlng,
-        //     map: map,
-        //     title: "trabaho"
-        // })
+        var marker = new google.maps.Marker({
+            position: latlng,
+            map: map,
+            title: "trabaho"
+        })
+        var infoWindow = new google.maps.InfoWindow;
         {% for order in orders %}
+            var contentString = '<div>' + " {{ order.payment_method }}" +'</div>';
+
+           // infoWindow.setContent(contentString);
+
+
             var coords = "{{ order.drop_off_address.split }}";
             var array = coords.split(',');
             var lati = array[0].replace('[&#39;', '');
             var longi = array[1].replace('&#39;]','');
-            console.log(lati);
-            console.log(longi);
-            // var lat = "14.551343";
-            // var long = "121.048217";
+
             latlng = new google.maps.LatLng(lati, longi);
-            new google.maps.Marker({
+
+            var marker = new google.maps.Marker({
                 position: latlng,
                 map: map,
                 title: "{{ order.payment_method }}"
             });
+
+            (function(marker, map, infoWindow, contentString){
+                
+                
+                marker.addListener('click', function() {
+                    console.log(contentString);
+                    infoWindow.setContent(contentString);
+                    infoWindow.open(map, marker);
+                });
+            }(marker, map, infoWindow, contentString));
+
+            
         {% endfor %}
+
     });
 </script>
 &#39;&#39;

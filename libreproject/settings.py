@@ -39,7 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'blog',
     'mapa_saan_ka_woman',
-    'googlemaps',
+    # 'googlemaps',
 ]
 
 MIDDLEWARE_CLASSES = [
