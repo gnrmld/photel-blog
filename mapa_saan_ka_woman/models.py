@@ -15,13 +15,13 @@ class DeliveryManStatus(models.Model):
 
 
 class OrderInfo(models.Model):
-'''
-    access item/client
-    order1 = OrderInfo.objects.get(pk=1)
-    order1.item / order1.client
-    then access its properties/methods by
-    order1.item.name / order1.item.price
-'''
+    '''
+        access item/client
+        order1 = OrderInfo.objects.get(pk=1)
+        order1.item / order1.client
+        then access its properties/methods by
+        order1.item.name / order1.item.price
+    '''
     item = models.ForeignKey('ItemInfo',  related_name='order', blank=True, null=True, on_delete=models.PROTECT)
     client = models.ForeignKey('ClientInfo', related_name='order', blank=True, null=True, on_delete=models.PROTECT)
     quantity = models.IntegerField(default=1)
