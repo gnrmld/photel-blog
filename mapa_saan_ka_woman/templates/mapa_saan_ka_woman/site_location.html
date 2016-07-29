@@ -3,56 +3,141 @@
 {% block content %}
 <div class='content'><div class="map" style="width: 800px; height: 800px;"></div></div>
 <script>
+    var MyLoc = {};
     $(document).ready(function(){
-        var latlng = new google.maps.LatLng("14.5509558", "121.0488619");
-        var mapOptions = {
-            zoom: 18,
-            center: latlng,
-            mapTypeControl: false,
-            navigationControlOptions: {
-                style: google.maps.NavigationControlStyle.SMALL
-            },
-            mapTypeId: google.maps.MapTypeId.ROADMAP
-        };
+        
+        //get current location
+        if (navigator.geolocation) {
+            navigator.geolocation.getCurrentPosition(success, error, geoOptions);
+        } else {
+            alert('no geolocation on your browser');
+        }
 
-        map = new google.maps.Map($('.map')[0], mapOptions);
-        var marker = new google.maps.Marker({
-            position: latlng,
-            map: map,
-            title: "trabaho"
-        })
-        var infoWindow = new google.maps.InfoWindow;
-        {% for order in orders %}
-            var contentString = '<div>' + " {{ order.payment_method }}" +'</div>';
+        //handle geolocationerror
+        function error(error){
+            alert('unable to retrieve location due to: ' + error.code + ": " + error.message);
+        }
 
-           // infoWindow.setContent(contentString);
+        //geolocation success
+        function success(position) {
+            latit = position.coords.latitude;
+            longit = position.coords.longitude;
+            var altitude = position.coords.altitude;
+            var accuracy = position.coords.accuracy;
+            globalizelatlong();
+        }
 
+        function globalizelatlong() {
+            var latlng = new google.maps.LatLng(latit, longit);
+            var mapOptions = {
+                zoom: 17,
+                center: latlng,
+                mapTypeControl: false,
+                navigationControlOptions: {
+                    style: google.maps.NavigationControlStyle.SMALL
+                },
+                mapTypeId: google.maps.MapTypeId.ROADMAP
+            };
 
-            var coords = "{{ order.drop_off_address.split }}";
-            var array = coords.split(',');
-            var lati = array[0].replace('[&#39;', '');
-            var longi = array[1].replace('&#39;]','');
-
-            latlng = new google.maps.LatLng(lati, longi);
-
+            map = new google.maps.Map($('.map')[0], mapOptions);
             var marker = new google.maps.Marker({
                 position: latlng,
                 map: map,
-                title: "{{ order.payment_method }}"
-            });
+                title: "You're here",
+                icon: 'http://www.euroheat.co.uk/images/you-are-here-icon.png'
+            })
+            var infoWindow = new google.maps.InfoWindow;
+            {% for order in orders %}
+                var contentString = '<div>' + " {{ order.payment_method }}" +'</div>';
 
-            (function(marker, map, infoWindow, contentString){
-                
-                
-                marker.addListener('click', function() {
-                    console.log(contentString);
-                    infoWindow.setContent(contentString);
-                    infoWindow.open(map, marker);
+               // infoWindow.setContent(contentString);
+
+
+                var coords = "{{ order.drop_off_address.split }}";
+                var array = coords.split(',');
+                var lati = array[0].replace('[&#39;', '');
+                var longi = array[1].replace('&#39;]','');
+
+                latlng = new google.maps.LatLng(lati, longi);
+
+                var marker = new google.maps.Marker({
+                    position: latlng,
+                    map: map,
+                    title: "{{ order.payment_method }}"
                 });
-            }(marker, map, infoWindow, contentString));
+
+                (function(marker, map, infoWindow, contentString){
+                    
+                    
+                    marker.addListener('click', function() {
+                        console.log(contentString);
+                        infoWindow.setContent(contentString);
+                        infoWindow.open(map, marker);
+                    });
+                }(marker, map, infoWindow, contentString));
+
+                
+            {% endfor %}
+        }
+
+        var geoOptions = {
+            enableHighAccuracy: true,
+            maximumAge: 30000,
+            timeout: 27000
+        };
+
+
+        
+
+        // var latlng = new google.maps.LatLng("14.5509558", "121.0488619");
+        // var mapOptions = {
+        //     zoom: 18,
+        //     center: latlng,
+        //     mapTypeControl: false,
+        //     navigationControlOptions: {
+        //         style: google.maps.NavigationControlStyle.SMALL
+        //     },
+        //     mapTypeId: google.maps.MapTypeId.ROADMAP
+        // };
+
+        // map = new google.maps.Map($('.map')[0], mapOptions);
+        // var marker = new google.maps.Marker({
+        //     position: latlng,
+        //     map: map,
+        //     title: "trabaho"
+        // })
+        // var infoWindow = new google.maps.InfoWindow;
+        // {% for order in orders %}
+        //     var contentString = '<div>' + " {{ order.payment_method }}" +'</div>';
+
+        //    // infoWindow.setContent(contentString);
+
+
+        //     var coords = "{{ order.drop_off_address.split }}";
+        //     var array = coords.split(',');
+        //     var lati = array[0].replace('[&#39;', '');
+        //     var longi = array[1].replace('&#39;]','');
+
+        //     latlng = new google.maps.LatLng(lati, longi);
+
+        //     var marker = new google.maps.Marker({
+        //         position: latlng,
+        //         map: map,
+        //         title: "{{ order.payment_method }}"
+        //     });
+
+        //     (function(marker, map, infoWindow, contentString){
+                
+                
+        //         marker.addListener('click', function() {
+        //             console.log(contentString);
+        //             infoWindow.setContent(contentString);
+        //             infoWindow.open(map, marker);
+        //         });
+        //     }(marker, map, infoWindow, contentString));
 
             
-        {% endfor %}
+        // {% endfor %}
 
     });
 </script>
